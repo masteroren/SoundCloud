@@ -1,0 +1,20 @@
+.search {
+    display: flex;
+    flex-direction: column;
+
+    .search-text {
+        width: 400px;
+    }
+
+    .results {
+        
+        .list-wrapper {
+
+            .list{
+                overflow: auto;
+                height: 200px;
+                margin-top: 10px;
+            }
+        }
+    }
+}

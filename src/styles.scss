@@ -1,1 +1,35 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import "styles/ui-sprite";
+@import "styles/primeng_overrides/listbox";
+
+@include sprites($spritesheet-sprites);
+
+// [class*="ui-icons"] {
+//     @extend %ui-icons;
+// }
+
+// [class*="ui-icons-"] {
+//     display: inline-block;
+//     font-family: ui-icons;
+//     font-style: normal;
+
+//     i:before {
+//         font-family: ui-icons !important;
+//         font-style: normal;
+//         font-weight: normal !important;
+//         vertical-align: top;
+//     }
+// }
+
+[class*="icon-"] {
+    display: inline-block;
+}
+
+html, body {
+    height: 100%;
+    font-size: 14px;
+    direction: ltr;
+    padding: 0;
+    margin: 0;
+}

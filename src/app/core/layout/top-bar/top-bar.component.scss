@@ -1,0 +1,14 @@
+.top-bar {
+    height: 60px;
+    padding: 10px;
+    display: flex;
+    justify-content: flex-start;
+    background-color: rgb(218, 214, 214);
+
+    .icon {
+        background-size: 130px;
+        background-repeat: no-repeat;
+        width: 130px;
+        height: 100%;
+    }
+}

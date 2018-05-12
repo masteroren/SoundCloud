@@ -1,0 +1,16 @@
+<div class="search">
+    <div>
+        <input #searchText type="text" class="search-text" pInputText/>
+        <button pButton (click)="search(searchText.value)" label="Go"></button>
+        <button *ngIf="showNext" pButton label="Next" (click)="next()"></button>
+        <span>{{items.length}} Results</span>
+    </div>
+    <div class="results">
+        <div *ngIf="!Loading && results.length" class="list-wrapper">
+            <div class="list">
+                <p-listbox [options]="results"></p-listbox>
+            </div>
+        </div>
+        <p-progressSpinner *ngIf="Loading"></p-progressSpinner>
+    </div>
+</div>
