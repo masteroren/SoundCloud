@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { SoundCloudService } from '../../services/sound-cloud.service';
 import { SelectItem } from 'primeng/api';
+import { SoundCloudService } from '../../services/sound-cloud.service';
 
 @Component({
   selector: 'sc-search',
@@ -10,50 +10,36 @@ import { SelectItem } from 'primeng/api';
 export class SearchComponent {
 
   public results: SelectItem[] = [];
-  public Loading: boolean;
-  public showNext: boolean = false;
-  private page: number = 1;
+  public loading: boolean = false;
+  private nextHref: string;
+  private url: string;
 
+  @Input() public items: any[] = [];
   @Output() onSearch = new EventEmitter();
 
-  private _items: any[] = [];
-  @Input()
-  set items(res: any) {
-    if (res) {
-      this.Loading = false;
-      this.showNext = res.length > 5;
-      this._items = res;
-      this.page = 1;
-      this.next();
-    }
-  }
-
-  get items() {
-    return this._items;
+  constructor(private scService: SoundCloudService) {
+    scService.searchCompleted.subscribe((data: { collection: any[], nextHref: string, url: string }) => {
+      this.nextHref = data.nextHref;
+      this.url = data.url;
+      this.results = data.collection.map(x => {
+        return {
+          label: x.title,
+          value: x.permalink,
+          link: x.permalink_url
+        };
+      })
+      this.loading = false;
+    })
   }
 
   search(value) {
-    this.Loading = true;
+    this.loading = true;
     this.onSearch.emit(value);
   }
 
   next() {
-    let start = (this.page - 1) * 5;
-    if (start >= this._items.length) {
-      this.page = 1;
-      start = (this.page - 1) * 5;
-    }
-
-    this.results = this._items
-      .map(item => {
-        return {
-          label: item.title,
-          value: item.id
-        }
-      })
-      .slice(start, start + 5);
-
-    this.page += 1;
+    this.scService.getNextPartition(this.url, this.nextHref);
   }
+
 
 }

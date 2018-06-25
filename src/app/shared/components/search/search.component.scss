@@ -1,19 +1,26 @@
 .search {
     display: flex;
     flex-direction: column;
-
     .search-text {
         width: 400px;
     }
-
     .results {
-        
         .list-wrapper {
-
-            .list{
+            .list {
                 overflow: auto;
-                height: 200px;
                 margin-top: 10px;
+                .header {
+                    font-weight: bold;
+                }
+                .result-item {
+                    border: 1px solid gray;
+                    border-radius: 5px;
+                    box-shadow: 2px 1px;
+                    padding: 5px;
+                    .result-name {
+                        font-weight: bold;
+                    }
+                }
             }
         }
     }

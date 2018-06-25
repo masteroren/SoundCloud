@@ -1,16 +1,31 @@
 <div class="search">
     <div>
-        <input #searchText type="text" class="search-text" pInputText/>
-        <button pButton (click)="search(searchText.value)" label="Go"></button>
-        <button *ngIf="showNext" pButton label="Next" (click)="next()"></button>
-        <span>{{items.length}} Results</span>
+        <input #searchText type="text" class="search-text" pInputText (keyup)="search(searchText.value)" />
+        <button *ngIf="nextHref" (click)="next()">Next</button>
     </div>
     <div class="results">
-        <div *ngIf="!Loading && results.length" class="list-wrapper">
+        <div *ngIf="loading == false && results.length != 0" class="list-wrapper">
             <div class="list">
-                <p-listbox [options]="results"></p-listbox>
+                <p-listbox [options]="results">
+                    <p-header>
+                        <div class="header">Found {{results.length}} results</div>
+                    </p-header>
+                    <ng-template let-result let-i="index" pTemplate="item">
+                        <div class="result-item">
+                            <label>
+                                <div class="result-name">Name:</div>
+                                <div>{{result.label}}</div>
+                            </label>
+                            <label>
+                                <div class="result-name">Link</div>
+                                <a href="{{result.link}}" target="_blank">{{result.value}}</a>
+                            </label>
+                        </div>
+                        
+                    </ng-template>
+                </p-listbox>
             </div>
         </div>
-        <p-progressSpinner *ngIf="Loading"></p-progressSpinner>
+        <p-progressSpinner *ngIf="loading"></p-progressSpinner>
     </div>
 </div>
